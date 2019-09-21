@@ -1,0 +1,6 @@
+# vscode
+.vscode/
+# DS
+.DS_Store
+# AWS
+health_check.html
