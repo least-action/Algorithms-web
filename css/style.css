@@ -1,0 +1,33 @@
+@import "reset.css";
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.nav {
+	width: 200px;
+	height: 100%;
+	background-color: #303030;
+	border: 1px solid;
+}
+
+a {
+	text-decoration: none;
+}
+
+#column1 {
+	width: 234px;
+	background: #333;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#title a {
+	color: #ddd;
+	font-weight: bold;
+}
