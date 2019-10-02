@@ -18,10 +18,22 @@
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	};
 
-	const drawGraph = function(list) {
-		ctx.fillStyle = 'black';
+	const drawGraph = function(list, widthRatio, heightRatio, barWidthRatio) {
+		clearCanvas();
 
-		ctx.fillRect(0, 0, 200, 200);
+		const barNum = list.length;
+		const graphWidth = (canvas.width * widthRatio) / barNum;
+		const barWidth = graphWidth * barWidthRatio;
+		const graphHeight = canvas.height * heightRatio;
+
+		const leftBottom = [ canvas.width * ((1 - widthRatio)/2),
+							canvas.height * ((1 + heightRatio)/2) ];
+
+		ctx.fillStyle = 'black';
+		for (let i=0; i<barNum; ++i) {
+			ctx.fillRect(leftBottom[0] + (graphWidth*i), leftBottom[1] - (graphHeight*((i+1)/barNum)),
+							barWidth, graphHeight*((list[i]+1)/barNum));
+		}
 	};
 
 	const initList = function(event) {
@@ -35,11 +47,11 @@
 
 		const tmpList = [];
 		for (let i = 0; i < num; ++i)
-			tmpList[i] = i + 1;
+			tmpList[i] = i;
 		list = tmpList;
 
 		clearCanvas();
-		drawGraph(list);
+		drawGraph(list, 0.7, 0.7, 0.3);
 	};
 
 	const shuffleList = function(list) {
@@ -57,6 +69,5 @@
 		if (form)	{ form.addEventListener("submit", initList); }
 		if (clrBtn)	{ clrBtn.addEventListener("click", clearCanvas); }
 
-		console.dir(canvas);
 	})();
 })();
