@@ -1,3 +1,7 @@
+/*TODO
+	- add animation to sorting
+*/
+
 (function() {
 	'use strict';
 
@@ -27,6 +31,7 @@
 		}
 	};
 	const sortList = function(list) {
+		list.sort((a, b) => { return a-b; });
 	};
 
 
@@ -66,7 +71,6 @@
 		clearCanvas();
 		drawGraph(list);
 	};
-
 	const sortCanvas = function(event) {
 		sortList(list);
 		drawGraph(list);
@@ -82,6 +86,5 @@
 		if (clrBtn)		{ clrBtn.addEventListener("click", clearCanvas); }
 		if (sortBtn)	{ sortBtn.addEventListener("click", sortCanvas); }
 		if (shuffleBtn)	{ shuffleBtn.addEventListener("click", shuffleCanvas); }
-
 	})();
 })();
