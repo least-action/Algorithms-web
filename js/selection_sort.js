@@ -1,5 +1,8 @@
 /*TODO
 	- add animation to sorting
+
+done
+	- bar position fitting
 */
 
 (function() {
@@ -15,8 +18,9 @@
 	const sortBtn = document.querySelector("#jsSortBtn");
 	const shuffleBtn = document.querySelector("#jsShuffleBtn");
 
-	const widthRatio = 0.7;
-	const heightRatio = 0.7;
+	// graph
+	const canvasWidthRatio = 0.7;
+	const canvasHeightRatio = 0.7;
 	const barWidthRatio = 0.3;
 
 	let list = [];
@@ -41,16 +45,20 @@
 	const drawGraph = function(list) {
 		clearCanvas();
 		const barNum = list.length;
-		const graphWidth = (canvas.width * widthRatio) / barNum;
-		const barWidth = graphWidth * barWidthRatio;
-		const graphHeight = canvas.height * heightRatio;
-		const leftBottom = [ canvas.width * ((1 - widthRatio)/2),
-							canvas.height * ((1 + heightRatio)/2) ];
+		const graphWidth = (canvas.width * canvasWidthRatio);
+		const eachWidth = graphWidth / barNum;
+		const barWidth = eachWidth * barWidthRatio;
+		const graphHeight = canvas.height * canvasHeightRatio;
+		const leftBottom = [ canvas.width * ((1 - canvasWidthRatio)/2),
+							canvas.height * ((1 + canvasHeightRatio)/2) ];
+		const barShift = barNum != 1 ? eachWidth * (1-barWidthRatio) / (barNum-1) : 0;
 
 		ctx.fillStyle = 'black';
 		for (let i=0; i<barNum; ++i) {
-			ctx.fillRect(leftBottom[0] + (graphWidth*i), leftBottom[1] - (graphHeight*((list[i]+1)/barNum)),
-							barWidth, graphHeight*((list[i]+1)/barNum));
+			ctx.fillRect(leftBottom[0] + ((eachWidth+barShift)*i),
+							leftBottom[1] - (graphHeight*((list[i]+1)/barNum)),
+							barWidth,
+							graphHeight*((list[i]+1)/barNum));
 		}
 	};
 
@@ -88,3 +96,15 @@
 		if (shuffleBtn)	{ shuffleBtn.addEventListener("click", shuffleCanvas); }
 	})();
 })();
+
+
+
+
+
+
+
+
+
+
+
+
