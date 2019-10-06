@@ -1,5 +1,6 @@
 /*TODO
 	- add animation to sorting
+	- coloring checking bars
 
 done
 	- bar position fitting
@@ -34,10 +35,22 @@ done
 			list[randomIdx] = tmp;
 		}
 	};
-	const sortList = function(list) {
-		list.sort((a, b) => { return a-b; });
+	const exchange = function(li, i, j) {
+		let tmp = li[i];
+		li[i] = li[j];
+		li[j] = tmp;
 	};
-
+	const testExchange = function(li, i, j) {
+		exchange(li, i, j);
+	};
+	const nthElementSort = function(list, n) {
+		let min = n;
+		for (let i=n; i<list.length; ++i) {
+			if (list[i] < list[min])
+				min = i;
+		}
+		exchange(list, n, min);
+	};
 
 	const clearCanvas = function() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -80,8 +93,9 @@ done
 		drawGraph(list);
 	};
 	const sortCanvas = function(event) {
-		sortList(list);
-		drawGraph(list);
+		for (let i=0; i<list.length; ++i) {
+			setTimeout(() => {nthElementSort(list, i); drawGraph(list);}, 10 * i)
+		}
 	};
 	const shuffleCanvas = function(event) {
 		shuffleList(list);
