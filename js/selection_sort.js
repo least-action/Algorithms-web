@@ -15,6 +15,14 @@ done
 	const ctx = canvas.getContext('2d');
 	const form = document.querySelector(".jsForm");
 	const input = document.querySelector("#jsInput");
+
+
+	const numBtn = document.querySelector("#jsNumberSetBtn");
+	const delayBtn = document.querySelector("#jsDelaySetBtn");
+	const numVal = document.querySelector("#jsNumber");
+	const delayVal = document.querySelector("#jsDelay");
+
+
 	const clrBtn = document.querySelector("#jsClearBtn");
 	const sortBtn = document.querySelector("#jsSortBtn");
 	const shuffleBtn = document.querySelector("#jsShuffleBtn");
@@ -23,7 +31,7 @@ done
 	const canvasWidthRatio = 0.7;
 	const canvasHeightRatio = 0.7;
 	const barWidthRatio = 0.3;
-	let delay = 10;
+	let delay;
 
 	let list = [];
 	let listColor = [];
@@ -52,10 +60,13 @@ done
 		}
 	};
 
-	const initList = function(event) {
-		event.preventDefault();
+	const setDelay = function() {
+		delay = delayVal.value;
+	};
+	const initList = function() {
+		//event.preventDefault();
+		const num = numVal.value;
 
-		const num = input.value;
 		if ( !Number.isInteger(Number(num)) ) {
 			alert("Only Integer is allowed");
 			return;
@@ -70,6 +81,7 @@ done
 		clearCanvas();
 		drawGraph(listWithColor);
 	};
+
 	const shuffleList = function(list) {
 		for (let i = 1; i < list.length; ++i) {
 			const randomIdx = Math.floor(Math.random() * (i+1));
@@ -95,7 +107,6 @@ done
 		}
 	};
 */
-
 	const selectionSort = function(listWithColor) {
 		let count = 0;
 		let min;
@@ -138,7 +149,8 @@ done
 
 	// main
 	const main = function() {
-		if (form)		{ form.addEventListener("submit", initList); }
+		if (numBtn)		{ numBtn.addEventListener("click", initList); }
+		if (delayBtn)	{ setDelay(); delayBtn.addEventListener("click", setDelay); }
 		if (clrBtn)		{ clrBtn.addEventListener("click", clearCanvas); }
 		if (sortBtn)	{ sortBtn.addEventListener("click", sortCanvas); }
 		if (shuffleBtn)	{ shuffleBtn.addEventListener("click", shuffleCanvas); }
